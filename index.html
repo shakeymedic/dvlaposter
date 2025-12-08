@@ -57,6 +57,48 @@
             position: relative;
         }
 
+        /* Print Controls (Visible on screen only) */
+        .print-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+            width: 250px;
+            font-size: 14px;
+        }
+
+        .print-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            background-color: #004494;
+        }
+
+        .print-tip {
+            color: #666;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
         /* HEADER */
         header {
             display: flex;
@@ -214,6 +256,7 @@
                 height: 100%;
                 width: 100%;
                 display: block;
+                overflow: visible;
             }
             .poster-container {
                 width: 100%;
@@ -222,11 +265,25 @@
                 padding: 10mm; /* Safe print margin */
                 aspect-ratio: auto;
             }
+            .print-controls {
+                display: none;
+            }
         }
 
     </style>
 </head>
 <body>
+
+    <!-- On-screen Print Helper -->
+    <div class="print-controls">
+        <button class="print-btn" onclick="window.print()">🖨️ Print Poster</button>
+        <div class="print-tip">
+            <strong>Checklist:</strong><br>
+            1. Select Paper Size: <strong>A3</strong><br>
+            2. Enable <strong>Background Graphics</strong> in 'More Settings'<br>
+            3. Set Margins to <strong>None</strong>
+        </div>
+    </div>
 
     <div class="poster-container">
         
