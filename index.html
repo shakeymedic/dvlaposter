@@ -169,7 +169,7 @@
 
         .section-box {
             border-radius: 0.8vh;
-            padding: 1.5vh;
+            padding: 1.2vh 1.5vh;
             display: flex;
             flex-direction: column;
             border-top: 0.6vh solid;
@@ -209,7 +209,7 @@
         .psych .section-title { color: #4527a0; }
 
         /* Card Content */
-        .topic { margin-bottom: 1.2vh; }
+        .topic { margin-bottom: 0.9vh; }
         .topic:last-child { margin-bottom: 0; }
 
         .topic-header {
@@ -292,7 +292,7 @@
                 <img src="https://iili.io/KGQOvkl.md.png" alt="WMEBEM Logo" class="logo">
                 <div class="titles">
                     <h1>Fitness to Drive</h1>
-                    <h2>At-A-Glance Guide for Emergency Medicine (Sept 2025)</h2>
+                    <h2>At-A-Glance Guide for Emergency Medicine (Oct 2026)</h2>
                 </div>
             </div>
             <div class="alert-box">
@@ -325,16 +325,19 @@
                     <div class="section-title">🧠 Neurology</div>
                     <div class="topic">
                         <div class="topic-header">Unexplained TLoC</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong>.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Stop <strong>12 months</strong>.</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong>. Notify.</div>
+                        <div class="rule"><span class="g2-tag">G2:</span> Stop <strong>12 months</strong>. Notify.</div>
                     </div>
                     <div class="topic">
                         <div class="topic-header">Reflex Syncope</div>
-                        <div class="rule">Drive if prodrome reliable & not whilst driving.</div>
+                        <div class="rule">Reliable prodrome &amp; not whilst driving: may drive.</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> Whilst driving: stop <strong>1m</strong>.</div>
+                        <div class="rule"><span class="g2-tag">G2:</span> Notify. Stop <strong>3m</strong> unless avoidable trigger.</div>
                     </div>
                     <div class="topic">
                         <div class="topic-header">Cough Syncope</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop 6 months.</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong> (12 if repeated).</div>
+                        <div class="rule"><span class="g2-tag">G2:</span> Stop <strong>12 months</strong>.</div>
                     </div>
                 </div>
 
@@ -343,13 +346,14 @@
                     <div class="section-title">🧠 Neuro (Cont)</div>
                     <div class="topic">
                         <div class="topic-header">First Unprovoked Seizure</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>12 months</strong>.</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong> (12 if ↑ risk). Notify.</div>
                         <div class="rule"><span class="g2-tag">G2:</span> Stop <strong>5 years</strong>.</div>
                     </div>
                     <div class="topic">
                         <div class="topic-header">Provoked Seizure</div>
-                        <div class="rule">e.g., Hyponatraemia, illness.</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong>.</div>
+                        <div class="rule">e.g., Hyponatraemia, illness, alcohol/drugs.</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> Usually stop <strong>6 months</strong>.</div>
+                        <div class="rule"><span class="g2-tag">G2:</span> Stop up to <strong>5 years</strong>.</div>
                     </div>
                     <div class="topic">
                         <div class="topic-header">Stroke / TIA</div>
@@ -371,7 +375,8 @@
                     </div>
                     <div class="topic">
                         <div class="topic-header">Arrhythmia</div>
-                        <div class="rule">Incapacitating? Stop. Resume after <strong>4 wks</strong> control.</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> Incapacitating? Stop ≥<strong>4 wks</strong>. Notify.</div>
+                        <div class="rule"><span class="g2-tag">G2:</span> Refused; relicence after <strong>3m</strong> &amp; EF≥40%.</div>
                     </div>
                     <div class="topic">
                         <div class="topic-header">Pacemaker</div>
@@ -379,7 +384,7 @@
                     </div>
                     <div class="topic">
                         <div class="topic-header">ICD (Defib)</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong>. Notify.</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong> (1m if prophylactic). Notify.</div>
                         <div class="rule"><span class="g2-tag">G2:</span> <strong>Permanent Bar.</strong></div>
                     </div>
                 </div>
@@ -389,12 +394,12 @@
                     <div class="section-title">🩸 Diabetes</div>
                     <div class="topic">
                         <div class="topic-header">Insulin / Severe Hypo</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Must have <strong>hypo awareness</strong>. Max 1 severe hypo in 12m.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Strict monitoring (6wk logs).</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> Must have <strong>hypo awareness</strong>. Max 1 severe hypo (awake) in 12m.</div>
+                        <div class="rule"><span class="g2-tag">G2:</span> <strong>No</strong> severe hypo in 12m. Test twice daily + 2-hourly when driving.</div>
                     </div>
                     <div class="topic">
                         <div class="topic-header">Hypo while driving</div>
-                        <div class="rule"><strong>MUST STOP DRIVING immediately.</strong></div>
+                        <div class="rule"><strong>MUST STOP DRIVING</strong> and notify DVLA.</div>
                     </div>
                 </div>
 
@@ -408,7 +413,9 @@
                     <div class="topic">
                         <div class="topic-header">Alcohol / Drugs</div>
                         <div class="rule">Persistent misuse:</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> <strong>6 months</strong> (Alc/Cannabis) or <strong>1 yr</strong> (Opiates).</div>
+                        <div class="rule"><span class="g1-tag">G1:</span> <strong>6 months</strong> (Alc/Cannabis) or <strong>1 yr</strong> (Cocaine/Opiates).</div>
+                        <div class="rule"><span class="g2-tag">G2:</span> <strong>1 yr</strong> (Alc/Cannabis) or <strong>3 yrs</strong> (Cocaine/Opiates).</div>
+                        <div class="rule">Alcohol dependence: G1 <strong>1 yr</strong>, G2 <strong>3 yrs</strong> abstinence.</div>
                     </div>
                 </div>
             </div>
@@ -417,8 +424,8 @@
 
         <footer>
             <div>Developed by Dr Jake Turner | WMEBEM</div>
-            <div><strong>UPDATED: SEPT 2025</strong></div>
-            <div>Full guidance: www.gov.uk/dvla/fitness-to-drive</div>
+            <div><strong>UPDATED: OCT 2026</strong> (DVLA guidance of 7 Nov 2025)</div>
+            <div>Full guidance: www.gov.uk/driving-medical-conditions</div>
         </footer>
 
     </div>
