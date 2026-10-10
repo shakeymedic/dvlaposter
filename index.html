@@ -1,434 +1,362 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DVLA Fitness to Drive - A3 Poster</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #f0f2f5;
-            --text-color: #1a1a1a;
-            --primary-blue: #0056b3;
-            --neuro-bg: #e3f2fd;
-            --neuro-border: #2196f3;
-            --cardio-bg: #ffebee;
-            --cardio-border: #f44336;
-            --diab-bg: #e8f5e9;
-            --diab-border: #4caf50;
-            --psych-bg: #ede7f6;
-            --psych-border: #673ab7;
-            --alert-bg: #fff3cd;
-            --alert-text: #856404;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness to Drive - A3 Posters</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --blue: #005eb8; --dark-blue: #003087; --text: #212b32; --muted: #4c6272; --red: #d5281b; --line: #d8dde0; --stop: #d5281b; --stop-bg: #fde8e6; --pause: #8a5300; --pause-bg: #fff4d6; --tell: #005eb8; --tell-bg: #e3eef9; --ok: #007f3b; --ok-bg: #e2f3e9; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+html, body { margin: 0; padding: 0; }
+body { font-family: 'Inter', Arial, sans-serif; color: var(--text); background: #555; }
 
-        * {
-            box-sizing: border-box;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }
+/* Toolbar (screen only) */
+.toolbar { position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 1000; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.3); display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 14px; overflow-x: auto; }
+.toolbar .tabs { display: flex; gap: 4px; background: #eef1f3; border-radius: 8px; padding: 3px; flex: none; }
+.toolbar .tab { border: none; background: transparent; padding: 8px 14px; border-radius: 6px; font: inherit; font-weight: 700; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.toolbar .tab[aria-selected="true"] { background: #fff; color: var(--dark-blue); box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+.toolbar .spacer { flex: 1; }
+.toolbar .btn { border: none; background: var(--blue); color: #fff; padding: 9px 14px; border-radius: 6px; font: inherit; font-weight: 700; cursor: pointer; white-space: nowrap; flex: none; }
+.toolbar .btn.secondary { background: #fff; color: var(--blue); border: 2px solid var(--blue); padding: 7px 12px; }
+.toolbar .tip { color: #555; font-size: 12px; line-height: 1.3; flex: none; }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: #555; /* Darker background to make the white page pop */
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+/* Each poster is laid out at true A3 size and scaled to fit the screen. */
+.stage { position: fixed; top: 56px; left: 0; right: 0; bottom: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.poster:not(.active) { display: none !important; }
 
-        /* A3 Container Setup */
-        .poster-container {
-            /* A3 Aspect Ratio is 1 : 1.414 (297mm x 420mm) */
-            height: 96vh;
-            aspect-ratio: 297 / 420; 
-            width: auto;
-            
-            background-color: white;
-            padding: 2.5vh; /* Slightly more padding for print look */
-            display: flex;
-            flex-direction: column;
-            gap: 1.5vh;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            position: relative;
-        }
+/* Simple poster */
+#simple.poster { width: 297mm; height: 420mm; flex: none; background: #fff; padding: 13mm 16mm 9mm; display: flex; flex-direction: column; gap: 6mm; box-shadow: 0 0 50px rgba(0,0,0,.5); transform-origin: center center; }
+#simple header { display: flex; align-items: center; gap: 8mm; border-bottom: 2mm solid var(--blue); padding-bottom: 5mm; }
+#simple .brand { flex: none; display: flex; flex-direction: column; gap: 1mm; }
+#simple .brand img { height: 20mm; width: auto; display: block; }
+#simple .brand .org { font-size: 12pt; font-weight: 700; color: var(--dark-blue); line-height: 1.25; }
+#simple h1 { flex: 1; margin: 0; font-size: 54pt; line-height: 1; color: var(--dark-blue); font-weight: 800; letter-spacing: -0.5pt; }
+#simple .lead { margin: 0; font-size: 29pt; font-weight: 800; color: var(--dark-blue); }
+#simple .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+#simple .tile { background: #f0f4f5; border-left: 3mm solid var(--blue); border-radius: 2.5mm; padding: 4mm 6mm; }
+#simple .tile h2 { margin: 0 0 1mm; font-size: 22pt; color: var(--dark-blue); line-height: 1.15; }
+#simple .tile p { margin: 0; font-size: 14pt; color: var(--muted); line-height: 1.3; }
+#simple .qrband { display: flex; align-items: center; gap: 8mm; background: var(--dark-blue); color: #fff; border-radius: 3mm; padding: 5mm 8mm; }
+#simple .qrband svg { width: 44mm; height: 44mm; flex: none; background: #fff; padding: 1.5mm; border-radius: 1.5mm; }
+#simple .qrband h2 { margin: 0 0 2mm; font-size: 26pt; line-height: 1.15; }
+#simple .qrband p { margin: 0; font-size: 15pt; line-height: 1.35; }
+#simple .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+#simple .steps div { border-top: 2mm solid var(--blue); padding-top: 2.5mm; font-size: 15pt; line-height: 1.3; }
+#simple .steps b { display: block; font-size: 20pt; color: var(--dark-blue); margin-bottom: 1mm; }
+#simple .groups { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 4mm; font-size: 14pt; line-height: 1.3; }
+#simple .groups > div { border-radius: 2.5mm; padding: 3.5mm 4.5mm; background: #f0f4f5; }
+#simple .groups h3 { margin: 0 0 1mm; font-size: 18pt; color: var(--dark-blue); }
+#simple .groups p { margin: 0; }
+#simple .groups .g2 { background: #fdf0e1; }
+#simple .groups .g2 h3 { color: #8a3b00; }
+#simple .groups .g2 h3 span { font-size: 11pt; }
+#simple .groups .work { background: #fff; border: 0.6mm dashed var(--blue); }
+#simple .groups .work h3 { font-size: 15pt; }
+#simple .groups ul { margin: 0; padding-left: 4.5mm; font-size: 12.5pt; }
+#simple .groups li + li { margin-top: 0.8mm; }
+#simple .risk { border: 0.8mm solid var(--red); border-radius: 2.5mm; padding: 3.5mm 5mm; font-size: 15pt; }
+#simple .risk strong { color: var(--red); }
+#simple footer { margin-top: auto; border-top: 0.4mm solid #d8dde0; padding-top: 3mm; display: flex; justify-content: space-between; align-items: center; gap: 6mm; font-size: 9.5pt; color: var(--muted); }
+#simple footer .review { background: #fff4d6; border: 0.5mm solid #c98a00; color: #5c3a00; border-radius: 2mm; padding: 1.5mm 3mm; font-weight: 700; font-size: 11pt; white-space: nowrap; }
 
-        /* Print Controls (Visible on screen only) */
-        .print-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
-            width: 250px;
-            font-size: 14px;
-        }
+/* Detailed poster */
+#detailed.poster { width: 297mm; height: 420mm; flex: none; background: #fff;
+  padding: 11mm 14mm 8mm; display: flex; flex-direction: column; gap: 4.5mm;
+  box-shadow: 0 0 50px rgba(0,0,0,.5); transform-origin: center center;
+  font-size: 13pt; line-height: 1.3; }
+#detailed header { display: flex; align-items: center; gap: 8mm; border-bottom: 1.8mm solid var(--blue); padding-bottom: 4mm; }
+#detailed .brand { display: flex; flex-direction: column; gap: 1mm; flex: none; }
+#detailed .brand img { height: 18mm; width: auto; display: block; }
+#detailed .brand .org { font-size: 11pt; font-weight: 700; color: var(--dark-blue); line-height: 1.25; }
+#detailed .titles { flex: 1; }
+#detailed .titles h1 { margin: 0; font-size: 46pt; line-height: 1; color: var(--dark-blue); font-weight: 800; letter-spacing: -0.5pt; }
+#detailed .qr { display: flex; flex-direction: column; align-items: center; gap: 1mm; flex: none; }
+#detailed .qr svg { width: 30mm; height: 30mm; display: block; }
+#detailed .qr span { font-size: 9.5pt; font-weight: 700; color: var(--dark-blue); text-align: center; line-height: 1.2; }
+#detailed .duty { background: var(--dark-blue); color: #fff; border-radius: 3mm; padding: 5mm 6mm; font-size: 19pt; font-weight: 800; text-align: center; line-height: 1.25; }
+#detailed .steps { display: grid; grid-template-columns: 0.9fr 1.15fr 1.3fr; gap: 4mm; }
+#detailed .step { border-top: 2mm solid var(--blue); background: #f0f4f5; border-radius: 2.5mm; padding: 3mm 4mm; display: flex; flex-direction: column; gap: 1.5mm; }
+#detailed .step h3 { margin: 0; font-size: 17pt; color: var(--dark-blue); }
+#detailed .step p { margin: 0; font-size: 12pt; }
+#detailed .step .row { display: flex; gap: 3mm; align-items: center; }
+#detailed .step .row svg { width: 18mm; height: 18mm; flex: none; background: #fff; }
+#detailed .escalate { border: 0.8mm solid var(--stop); border-radius: 2.5mm; padding: 3mm 5mm; font-size: 13pt; color: var(--text); }
+#detailed .escalate strong { color: var(--stop); }
+#detailed .groups { display: grid; grid-template-columns: 1fr 1fr 1.9fr; gap: 4mm; font-size: 11.5pt; }
+#detailed .groups > div { border-radius: 2.5mm; padding: 3mm 4mm; background: #f0f4f5; }
+#detailed .groups h3 { margin: 0 0 1mm; font-size: 15pt; color: var(--dark-blue); }
+#detailed .groups p { margin: 0; }
+#detailed .groups .g2 { background: #fdf0e1; }
+#detailed .groups .g2 h3 { color: #8a3b00; }
+#detailed .groups .g2 h3 span { font-size: 10pt; font-weight: 700; }
+#detailed .groups .work { background: #fff; border: 0.6mm dashed var(--blue); }
+#detailed .groups .work h3 { font-size: 12.5pt; }
+#detailed .groups ul { margin: 0; padding-left: 4.5mm; font-size: 10.5pt; line-height: 1.3; }
+#detailed .groups li + li { margin-top: 0.6mm; }
+#detailed .chip { display: inline-block; border-radius: 1.8mm; padding: 0.8mm 2.2mm; font-size: 10pt; font-weight: 700; line-height: 1.25; white-space: nowrap; border: 0.4mm solid; }
+#detailed .c-stop { color: var(--stop); background: var(--stop-bg); border-color: var(--stop); }
+#detailed .c-pause { color: var(--pause); background: var(--pause-bg); border-color: #c98a00; }
+#detailed .c-tell { color: var(--tell); background: var(--tell-bg); border-color: var(--tell); }
+#detailed .c-ok { color: var(--ok); background: var(--ok-bg); border-color: var(--ok); }
+#detailed .legend { display: flex; justify-content: space-between; gap: 3mm; font-size: 11pt; }
+#detailed .legend span.item { white-space: nowrap; }
+#detailed .conditions { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; flex: 1; min-height: 0; }
+#detailed .col { display: flex; flex-direction: column; gap: 3.5mm; }
+#detailed table { width: 100%; border-collapse: collapse; }
+#detailed tr.cap th { text-align: left; font-size: 9.5pt; font-weight: 700; color: var(--muted); padding: 0 1mm 1mm; border-bottom: 0.7mm solid var(--blue); vertical-align: bottom; }
+#detailed tr.cap th:first-child { font-size: 13pt; font-weight: 800; color: var(--dark-blue); text-transform: uppercase; letter-spacing: 0.3pt; }
+#detailed th.g { width: 34mm; }
+#detailed td { padding: 1.3mm 1mm; border-bottom: 0.3mm solid var(--line); vertical-align: middle; font-size: 12.5pt; line-height: 1.25; }
+#detailed td small { color: var(--muted); font-size: 9pt; display: block; }
+#detailed .check { font-size: 11pt; color: var(--muted); margin: 0; }
+#detailed .check strong { color: var(--text); }
+#detailed footer { border-top: 0.4mm solid var(--line); padding-top: 3mm; display: flex; justify-content: space-between; align-items: center; gap: 6mm; font-size: 9pt; color: var(--muted); }
+#detailed footer .review { background: #fff4d6; border: 0.5mm solid #c98a00; color: #5c3a00; border-radius: 2mm; padding: 1.5mm 3mm; font-weight: 700; font-size: 11pt; white-space: nowrap; }
 
-        .print-btn {
-            background-color: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .print-btn:hover {
-            background-color: #004494;
-        }
-
-        .print-tip {
-            color: #666;
-            font-size: 12px;
-            line-height: 1.4;
-        }
-
-        /* HEADER */
-        header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            border-bottom: 0.4vh solid var(--primary-blue);
-            padding-bottom: 1.5vh;
-            gap: 1vh;
-        }
-
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2vh;
-            width: 100%;
-        }
-
-        .logo {
-            height: 7vh; /* Slightly larger for A3 */
-            width: auto;
-        }
-
-        .titles h1 {
-            font-size: 3.2vh; 
-            margin: 0;
-            color: var(--primary-blue);
-            text-transform: uppercase;
-            line-height: 1;
-        }
-
-        .titles h2 {
-            font-size: 1.5vh;
-            margin: 0.5vh 0 0 0;
-            color: #555;
-            font-weight: 600;
-        }
-
-        .alert-box {
-            background-color: var(--alert-bg);
-            color: var(--alert-text);
-            padding: 1vh 2vh;
-            border-radius: 0.8vh;
-            border-left: 0.8vh solid #ffc107;
-            font-size: 1.3vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.3;
-            text-align: center;
-        }
-
-        /* MAIN GRID - 2 Columns */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2vh; /* Wider gap for A3 */
-            flex-grow: 1;
-        }
-
-        .column {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5vh;
-        }
-
-        .section-box {
-            border-radius: 0.8vh;
-            padding: 1.2vh 1.5vh;
-            display: flex;
-            flex-direction: column;
-            border-top: 0.6vh solid;
-            box-shadow: none; /* Removed shadow for cleaner print look */
-            border-left: 1px solid rgba(0,0,0,0.05);
-            border-right: 1px solid rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        /* Colors */
-        .foundation { background-color: #333; color: white; border-top-color: #000; }
-        .neuro { background-color: var(--neuro-bg); border-top-color: var(--neuro-border); }
-        .cardio { background-color: var(--cardio-bg); border-top-color: var(--cardio-border); }
-        .endo { background-color: var(--diab-bg); border-top-color: var(--diab-border); }
-        .psych { background-color: var(--psych-bg); border-top-color: var(--psych-border); }
-
-        .foundation .section-title { color: white; border-bottom-color: rgba(255,255,255,0.2); }
-        .foundation .topic-header { color: #ddd; }
-        .foundation .rule { color: #eee; }
-        .foundation ul { color: #eee; }
-
-        .section-title {
-            font-size: 1.6vh;
-            font-weight: 800;
-            margin: 0 0 1vh 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8vh;
-            text-transform: uppercase;
-            border-bottom: 2px solid rgba(0,0,0,0.1);
-            padding-bottom: 0.5vh;
-        }
-
-        .neuro .section-title { color: #1565c0; }
-        .cardio .section-title { color: #c62828; }
-        .endo .section-title { color: #2e7d32; }
-        .psych .section-title { color: #4527a0; }
-
-        /* Card Content */
-        .topic { margin-bottom: 0.9vh; }
-        .topic:last-child { margin-bottom: 0; }
-
-        .topic-header {
-            font-size: 1.3vh;
-            font-weight: 700;
-            margin-bottom: 0.3vh;
-            color: #222;
-        }
-
-        .rule {
-            font-size: 1.2vh;
-            margin: 0;
-            line-height: 1.4;
-            color: #333;
-        }
-
-        .g1-tag { font-weight: 700; color: #0056b3; }
-        .g2-tag { font-weight: 700; color: #c62828; font-size: 0.9em; }
-
-        ul { margin: 0; padding-left: 2vh; }
-        li { margin-bottom: 0.3vh; }
-
-        /* Footer */
-        footer {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1vh;
-            color: #666;
-            border-top: 1px solid #ddd;
-            padding-top: 1vh;
-            margin-top: auto;
-        }
-
-        /* PRINT CONFIGURATION */
-        @media print {
-            @page {
-                size: A3 portrait;
-                margin: 0;
-            }
-            body {
-                background-color: white;
-                height: 100%;
-                width: 100%;
-                display: block;
-                overflow: visible;
-            }
-            .poster-container {
-                width: 100%;
-                height: 100%;
-                box-shadow: none;
-                padding: 10mm; /* Safe print margin */
-                aspect-ratio: auto;
-            }
-            .print-controls {
-                display: none;
-            }
-        }
-
-    </style>
+@media print {
+  @page { size: A3 portrait; margin: 0; }
+  body { background: #fff; }
+  .toolbar { display: none; }
+  .stage { position: static; overflow: visible; display: block; }
+  .poster { transform: none !important; box-shadow: none !important; }
+  body.print-both .poster { display: flex !important; }
+  body.print-both #simple { break-after: page; }
+}
+</style>
 </head>
 <body>
 
-    <!-- On-screen Print Helper -->
-    <div class="print-controls">
-        <button class="print-btn" onclick="window.print()">🖨️ Print Poster</button>
-        <div class="print-tip">
-            <strong>Checklist:</strong><br>
-            1. Select Paper Size: <strong>A3</strong><br>
-            2. Enable <strong>Background Graphics</strong> in 'More Settings'<br>
-            3. Set Margins to <strong>None</strong>
-        </div>
+<div class="toolbar">
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-target="simple">Simple poster</button>
+    <button class="tab" role="tab" data-target="detailed">Detailed poster</button>
+  </div>
+  <div class="spacer"></div>
+  <div class="tip">Print on <strong>A3</strong>, margins <strong>None</strong>,<br><strong>Background graphics</strong> on</div>
+  <button class="btn" id="printOne">Print this poster</button>
+  <button class="btn secondary" id="printBoth">Print both</button>
+</div>
+
+<div class="stage">
+<div class="poster" id="simple" aria-label="Simple poster">
+
+  <header>
+    <div class="brand">
+      <!-- Add the official Trust logo file as uhb-logo.png next to this page. Until then only the Trust name shows. -->
+      <img src="uhb-logo.png" alt="University Hospitals Birmingham NHS Foundation Trust" onload="document.getElementById('trustName-s').remove()" onerror="this.remove()">
+      <div class="org">Emergency Department<span id="trustName-s"><br>University Hospitals<br>Birmingham</span></div>
     </div>
+    <h1>Fitness to drive</h1>
+  </header>
 
-    <div class="poster-container">
-        
-        <header>
-            <div class="header-top">
-                <img src="https://raw.githubusercontent.com/shakeymedic/wmem/main/emevidence_logo.png" alt="EM Evidence logo" class="logo">
-                <div class="titles">
-                    <h1>Fitness to Drive</h1>
-                    <h2>At-A-Glance Guide for Emergency Medicine (Oct 2026)</h2>
-                </div>
-            </div>
-            <div class="alert-box">
-                <strong>🚨 LEGAL DUTY: It is the PATIENT'S duty to notify DVLA, not the doctor's (unless public safety is at immediate risk). Document your advice.</strong>
-            </div>
-        </header>
+  <p class="lead">Does your patient have any of these? Check the DVLA guidance.</p>
 
-        <div class="content-grid">
-            
-            <!-- Left Column -->
-            <div class="column">
-                <!-- Basics -->
-                <div class="section-box foundation">
-                    <div class="section-title">⚖️ The Basics</div>
-                    <div class="topic">
-                        <div class="topic-header">Risk Thresholds</div>
-                        <ul class="rule">
-                            <li><strong>Group 1:</strong> >20% risk/year</li>
-                            <li><strong>Group 2:</strong> >2% risk/year</li>
-                        </ul>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">3-Month Rule</div>
-                        <div class="rule">Usually NO notify for conditions lasting &lt; 3 months (e.g., fractures).</div>
-                    </div>
-                </div>
+  <section class="grid">
+    <div class="tile"><h2>Seizures or blackouts</h2><p>Any seizure, unexplained loss of consciousness</p></div>
+    <div class="tile"><h2>Brain</h2><p>Stroke, TIA, head injury, intracranial bleed, tumour, disabling vertigo</p></div>
+    <div class="tile"><h2>Heart</h2><p>ACS, arrhythmia, pacemaker or ICD, aortic dissection or aneurysm</p></div>
+    <div class="tile"><h2>Diabetes</h2><p>Severe hypo, loss of hypo awareness, new insulin</p></div>
+    <div class="tile"><h2>Mental health</h2><p>Psychosis, mania, severe depression, suicidal thoughts, dementia</p></div>
+    <div class="tile"><h2>Alcohol or drugs</h2><p>Dependence or persistent misuse</p></div>
+    <div class="tile"><h2>Eyes</h2><p>Poor vision, double vision, visual field loss</p></div>
+    <div class="tile"><h2>Sleepiness</h2><p>Sleep apnoea, excessive daytime sleepiness</p></div>
+  </section>
 
-                <!-- Neuro Part 1 -->
-                <div class="section-box neuro">
-                    <div class="section-title">🧠 Neurology</div>
-                    <div class="topic">
-                        <div class="topic-header">Unexplained TLoC</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong>. Notify.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Stop <strong>12 months</strong>. Notify.</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">Reflex Syncope</div>
-                        <div class="rule">Reliable prodrome &amp; not whilst driving: may drive.</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Whilst driving: stop <strong>1m</strong>.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Notify. Stop <strong>3m</strong> unless avoidable trigger.</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">Cough Syncope</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong> (12 if repeated).</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Stop <strong>12 months</strong>.</div>
-                    </div>
-                </div>
-
-                <!-- Neuro Part 2 -->
-                <div class="section-box neuro" style="flex-grow: 1;">
-                    <div class="section-title">🧠 Neuro (Cont)</div>
-                    <div class="topic">
-                        <div class="topic-header">First Unprovoked Seizure</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong> (12 if ↑ risk). Notify.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Stop <strong>5 years</strong>.</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">Provoked Seizure</div>
-                        <div class="rule">e.g., Hyponatraemia, illness, alcohol/drugs.</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Usually stop <strong>6 months</strong>.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Stop up to <strong>5 years</strong>.</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">Stroke / TIA</div>
-                        <div class="rule"><strong>TIA:</strong> Stop <strong>1m</strong>. No notify if no deficit.</div>
-                        <div class="rule"><strong>Stroke:</strong> Stop <strong>1m</strong>. Notify if deficit remains.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column -->
-            <div class="column">
-                <!-- Cardio -->
-                <div class="section-box cardio">
-                    <div class="section-title">❤️ Cardiovascular</div>
-                    <div class="topic">
-                        <div class="topic-header">ACS (MI, NSTEMI)</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>1 wk</strong> if PCI+EF≥40%. Else <strong>4 wks</strong>.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Stop <strong>6 wks</strong> min.</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">Arrhythmia</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Incapacitating? Stop ≥<strong>4 wks</strong>. Notify.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> Refused; relicence after <strong>3m</strong> &amp; EF≥40%.</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">Pacemaker</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>1 wk</strong>. Notify.</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">ICD (Defib)</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Stop <strong>6 months</strong> (1m if prophylactic). Notify.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> <strong>Permanent Bar.</strong></div>
-                    </div>
-                </div>
-
-                <!-- Diabetes -->
-                <div class="section-box endo">
-                    <div class="section-title">🩸 Diabetes</div>
-                    <div class="topic">
-                        <div class="topic-header">Insulin / Severe Hypo</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> Must have <strong>hypo awareness</strong>. Max 1 severe hypo (awake) in 12m.</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> <strong>No</strong> severe hypo in 12m. Test twice daily + 2-hourly when driving.</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">Hypo while driving</div>
-                        <div class="rule"><strong>MUST STOP DRIVING</strong> and notify DVLA.</div>
-                    </div>
-                </div>
-
-                <!-- Psych -->
-                <div class="section-box psych" style="flex-grow: 1;">
-                    <div class="section-title">💊 Psych & Drugs</div>
-                    <div class="topic">
-                        <div class="topic-header">Psychosis / Mania</div>
-                        <div class="rule">Stop acute. Resume <strong>3m</strong> stable (G1).</div>
-                    </div>
-                    <div class="topic">
-                        <div class="topic-header">Alcohol / Drugs</div>
-                        <div class="rule">Persistent misuse:</div>
-                        <div class="rule"><span class="g1-tag">G1:</span> <strong>6 months</strong> (Alc/Cannabis) or <strong>1 yr</strong> (Cocaine/Opiates).</div>
-                        <div class="rule"><span class="g2-tag">G2:</span> <strong>1 yr</strong> (Alc/Cannabis) or <strong>3 yrs</strong> (Cocaine/Opiates).</div>
-                        <div class="rule">Alcohol dependence: G1 <strong>1 yr</strong>, G2 <strong>3 yrs</strong> abstinence.</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <footer>
-            <div>Developed by Dr Jake Turner | WMEBEM</div>
-            <div><strong>UPDATED: OCT 2026</strong> (DVLA guidance of 7 Nov 2025)</div>
-            <div>Full guidance: www.gov.uk/driving-medical-conditions</div>
-        </footer>
-
+  <section class="qrband">
+    <svg role="img" aria-label="QR code: gov.uk/guidance/assessing-fitness-to-drive-a-guide-for-medical-professionals" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45"><path stroke="#000" d="M2 2.5h7m5 0h2m1 0h2m1 0h1m2 0h2m3 0h1m2 0h2m1 0h1m1 0h7m-41 1h1m5 0h1m1 0h2m2 0h1m4 0h1m7 0h2m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m-41 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h4m1 0h5m1 0h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-41 1h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m5 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-41 1h1m1 0h3m1 0h1m3 0h5m3 0h3m1 0h4m2 0h1m1 0h3m1 0h1m1 0h3m1 0h1m-41 1h1m5 0h1m4 0h1m3 0h2m1 0h1m2 0h2m2 0h2m1 0h2m2 0h1m1 0h1m5 0h1m-41 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-33 1h1m1 0h1m2 0h1m1 0h2m3 0h1m1 0h3m1 0h1m-27 1h1m5 0h1m1 0h3m2 0h1m1 0h1m1 0h1m4 0h1m1 0h3m2 0h1m1 0h4m2 0h3m-40 1h5m2 0h4m1 0h2m1 0h1m2 0h2m1 0h4m2 0h1m1 0h1m1 0h1m1 0h1m1 0h2m2 0h1m-40 1h2m1 0h4m1 0h1m2 0h3m1 0h4m2 0h2m3 0h4m2 0h1m1 0h2m-36 1h2m1 0h3m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h3m2 0h2m1 0h3m1 0h4m1 0h2m-41 1h2m1 0h1m2 0h1m4 0h2m2 0h2m2 0h1m4 0h1m2 0h1m4 0h1m1 0h2m3 0h2m-39 1h4m1 0h1m1 0h1m1 0h1m5 0h2m3 0h1m2 0h1m3 0h2m3 0h5m1 0h1m-40 1h6m1 0h1m3 0h2m1 0h3m2 0h2m1 0h2m1 0h3m3 0h2m1 0h1m1 0h3m-38 1h1m1 0h2m2 0h1m1 0h1m1 0h5m3 0h1m2 0h1m4 0h1m2 0h3m2 0h5m-41 1h2m1 0h1m2 0h4m1 0h1m1 0h1m1 0h3m2 0h1m1 0h6m1 0h1m3 0h1m1 0h1m2 0h1m-38 1h1m2 0h1m7 0h2m2 0h1m1 0h4m1 0h1m3 0h1m1 0h10m1 0h1m-40 1h1m1 0h5m2 0h2m1 0h1m3 0h4m2 0h1m1 0h4m2 0h2m1 0h3m1 0h3m-39 1h4m2 0h1m3 0h1m2 0h2m4 0h1m2 0h1m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m-39 1h1m3 0h3m1 0h3m1 0h4m1 0h1m2 0h3m3 0h1m10 0h1m-37 1h3m2 0h2m2 0h7m1 0h1m2 0h2m3 0h1m2 0h2m1 0h1m1 0h2m1 0h1m-39 1h1m2 0h1m1 0h2m3 0h1m1 0h4m1 0h1m2 0h1m1 0h1m2 0h3m1 0h1m2 0h1m2 0h1m1 0h2m-37 1h1m1 0h1m4 0h2m4 0h1m2 0h1m1 0h1m1 0h3m2 0h2m2 0h1m1 0h1m1 0h1m1 0h1m-38 1h2m1 0h6m1 0h2m3 0h2m3 0h1m2 0h2m1 0h3m2 0h2m1 0h2m1 0h1m1 0h1m-39 1h4m4 0h1m2 0h3m1 0h5m1 0h2m1 0h1m1 0h2m2 0h1m2 0h4m1 0h2m-38 1h6m3 0h1m2 0h1m2 0h1m1 0h3m2 0h3m1 0h1m2 0h2m1 0h2m-37 1h5m2 0h2m1 0h1m1 0h2m2 0h1m3 0h1m1 0h1m3 0h2m3 0h1m1 0h3m1 0h4m-41 1h2m3 0h3m1 0h1m2 0h4m1 0h1m1 0h1m2 0h1m2 0h2m2 0h4m2 0h1m1 0h2m-39 1h2m5 0h1m1 0h1m1 0h1m2 0h1m1 0h1m3 0h2m2 0h1m3 0h1m1 0h3m1 0h3m3 0h1m-41 1h3m1 0h1m1 0h1m3 0h2m1 0h2m1 0h1m3 0h2m1 0h1m1 0h1m2 0h1m2 0h3m4 0h1m1 0h1m-41 1h1m2 0h2m6 0h1m1 0h1m4 0h3m3 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h2m2 0h1m-41 1h1m4 0h5m5 0h3m1 0h2m3 0h3m1 0h2m1 0h8m-31 1h1m1 0h1m1 0h4m1 0h3m2 0h2m1 0h3m2 0h1m1 0h1m3 0h1m1 0h1m-39 1h7m2 0h1m2 0h1m2 0h1m1 0h1m2 0h2m2 0h5m1 0h3m1 0h1m1 0h2m-38 1h1m5 0h1m5 0h1m1 0h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m2 0h2m3 0h1m2 0h2m-41 1h1m1 0h3m1 0h1m2 0h1m2 0h4m1 0h1m2 0h4m1 0h1m2 0h10m1 0h2m-41 1h1m1 0h3m1 0h1m7 0h1m3 0h2m2 0h2m1 0h1m1 0h2m2 0h1m3 0h1m2 0h2m-40 1h1m1 0h3m1 0h1m2 0h3m1 0h4m1 0h1m1 0h3m2 0h5m2 0h6m-38 1h1m5 0h1m2 0h1m1 0h5m3 0h1m6 0h1m4 0h1m2 0h1m1 0h3m1 0h1m-41 1h7m1 0h5m1 0h1m4 0h1m2 0h1m2 0h2m2 0h3m2 0h3m1 0h1"/></svg>
+    <div>
+      <h2>Scan for the full DVLA guidance</h2>
+      <p>It says whether they must stop driving, for how long, and whether to tell DVLA.</p>
     </div>
+  </section>
 
+  <section class="steps">
+    <div><b>Advise</b>Explain the patient's legal duty to tell DVLA.</div>
+    <div><b>Signpost</b>Point them to GOV.UK. DVLA decides when they can drive.</div>
+    <div><b>Document</b>Record what driving advice you gave.</div>
+  </section>
+
+  <section class="groups">
+    <div class="g1">
+      <h3>Group 1</h3>
+      <p>Cars, motorcycles, and vans up to 3.5 tonnes (most delivery drivers).</p>
+    </div>
+    <div class="g2">
+      <h3>Group 2 <span>stricter rules</span></h3>
+      <p>Lorries over 3.5 tonnes (C1, C), minibuses and buses (D1, D).</p>
+    </div>
+    <div class="work">
+      <h3>Drives for work? Ask what they drive.</h3>
+      <ul>
+        <li><strong>Taxi and private hire:</strong> councils should apply Group 2 rules.</li>
+        <li><strong>Delivery:</strong> van up to 3.5 t is Group 1; larger lorry is Group 2.</li>
+        <li><strong>Paramedics, police, fire:</strong> rules for the vehicle they drive (ambulance over 3.5 t is Group 2). Employers may set higher standards.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="risk"><strong>Won't stop driving?</strong> Speak to a senior about telling DVLA without consent.</div>
+
+  <footer>
+    <div>Based on DVLA "Assessing fitness to drive" (GOV.UK, updated 7 November 2025). Not a complete list. Developed by Dr Jake Turner.</div>
+    <div class="review">Review by: April 2027</div>
+  </footer>
+
+</div>
+
+<div class="poster" id="detailed" aria-label="Detailed poster">
+
+  <header>
+    <div class="brand">
+      <!-- Add the official Trust logo file as uhb-logo.png next to this page. Until then only the Trust name shows. -->
+      <img src="uhb-logo.png" alt="University Hospitals Birmingham NHS Foundation Trust" onload="document.getElementById('trustName-d').remove()" onerror="this.remove()">
+      <div class="org">Emergency Department<span id="trustName-d"><br>University Hospitals<br>Birmingham</span></div>
+    </div>
+    <div class="titles"><h1>Fitness to drive</h1></div>
+    <div class="qr">
+      <svg role="img" aria-label="QR code: gov.uk/guidance/assessing-fitness-to-drive-a-guide-for-medical-professionals" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45"><path stroke="#000" d="M2 2.5h7m5 0h2m1 0h2m1 0h1m2 0h2m3 0h1m2 0h2m1 0h1m1 0h7m-41 1h1m5 0h1m1 0h2m2 0h1m4 0h1m7 0h2m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m-41 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h4m1 0h5m1 0h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-41 1h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m5 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-41 1h1m1 0h3m1 0h1m3 0h5m3 0h3m1 0h4m2 0h1m1 0h3m1 0h1m1 0h3m1 0h1m-41 1h1m5 0h1m4 0h1m3 0h2m1 0h1m2 0h2m2 0h2m1 0h2m2 0h1m1 0h1m5 0h1m-41 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-33 1h1m1 0h1m2 0h1m1 0h2m3 0h1m1 0h3m1 0h1m-27 1h1m5 0h1m1 0h3m2 0h1m1 0h1m1 0h1m4 0h1m1 0h3m2 0h1m1 0h4m2 0h3m-40 1h5m2 0h4m1 0h2m1 0h1m2 0h2m1 0h4m2 0h1m1 0h1m1 0h1m1 0h1m1 0h2m2 0h1m-40 1h2m1 0h4m1 0h1m2 0h3m1 0h4m2 0h2m3 0h4m2 0h1m1 0h2m-36 1h2m1 0h3m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h3m2 0h2m1 0h3m1 0h4m1 0h2m-41 1h2m1 0h1m2 0h1m4 0h2m2 0h2m2 0h1m4 0h1m2 0h1m4 0h1m1 0h2m3 0h2m-39 1h4m1 0h1m1 0h1m1 0h1m5 0h2m3 0h1m2 0h1m3 0h2m3 0h5m1 0h1m-40 1h6m1 0h1m3 0h2m1 0h3m2 0h2m1 0h2m1 0h3m3 0h2m1 0h1m1 0h3m-38 1h1m1 0h2m2 0h1m1 0h1m1 0h5m3 0h1m2 0h1m4 0h1m2 0h3m2 0h5m-41 1h2m1 0h1m2 0h4m1 0h1m1 0h1m1 0h3m2 0h1m1 0h6m1 0h1m3 0h1m1 0h1m2 0h1m-38 1h1m2 0h1m7 0h2m2 0h1m1 0h4m1 0h1m3 0h1m1 0h10m1 0h1m-40 1h1m1 0h5m2 0h2m1 0h1m3 0h4m2 0h1m1 0h4m2 0h2m1 0h3m1 0h3m-39 1h4m2 0h1m3 0h1m2 0h2m4 0h1m2 0h1m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m-39 1h1m3 0h3m1 0h3m1 0h4m1 0h1m2 0h3m3 0h1m10 0h1m-37 1h3m2 0h2m2 0h7m1 0h1m2 0h2m3 0h1m2 0h2m1 0h1m1 0h2m1 0h1m-39 1h1m2 0h1m1 0h2m3 0h1m1 0h4m1 0h1m2 0h1m1 0h1m2 0h3m1 0h1m2 0h1m2 0h1m1 0h2m-37 1h1m1 0h1m4 0h2m4 0h1m2 0h1m1 0h1m1 0h3m2 0h2m2 0h1m1 0h1m1 0h1m1 0h1m-38 1h2m1 0h6m1 0h2m3 0h2m3 0h1m2 0h2m1 0h3m2 0h2m1 0h2m1 0h1m1 0h1m-39 1h4m4 0h1m2 0h3m1 0h5m1 0h2m1 0h1m1 0h2m2 0h1m2 0h4m1 0h2m-38 1h6m3 0h1m2 0h1m2 0h1m1 0h3m2 0h3m1 0h1m2 0h2m1 0h2m-37 1h5m2 0h2m1 0h1m1 0h2m2 0h1m3 0h1m1 0h1m3 0h2m3 0h1m1 0h3m1 0h4m-41 1h2m3 0h3m1 0h1m2 0h4m1 0h1m1 0h1m2 0h1m2 0h2m2 0h4m2 0h1m1 0h2m-39 1h2m5 0h1m1 0h1m1 0h1m2 0h1m1 0h1m3 0h2m2 0h1m3 0h1m1 0h3m1 0h3m3 0h1m-41 1h3m1 0h1m1 0h1m3 0h2m1 0h2m1 0h1m3 0h2m1 0h1m1 0h1m2 0h1m2 0h3m4 0h1m1 0h1m-41 1h1m2 0h2m6 0h1m1 0h1m4 0h3m3 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h2m2 0h1m-41 1h1m4 0h5m5 0h3m1 0h2m3 0h3m1 0h2m1 0h8m-31 1h1m1 0h1m1 0h4m1 0h3m2 0h2m1 0h3m2 0h1m1 0h1m3 0h1m1 0h1m-39 1h7m2 0h1m2 0h1m2 0h1m1 0h1m2 0h2m2 0h5m1 0h3m1 0h1m1 0h2m-38 1h1m5 0h1m5 0h1m1 0h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m2 0h2m3 0h1m2 0h2m-41 1h1m1 0h3m1 0h1m2 0h1m2 0h4m1 0h1m2 0h4m1 0h1m2 0h10m1 0h2m-41 1h1m1 0h3m1 0h1m7 0h1m3 0h2m2 0h2m1 0h1m1 0h2m2 0h1m3 0h1m2 0h2m-40 1h1m1 0h3m1 0h1m2 0h3m1 0h4m1 0h1m1 0h3m2 0h5m2 0h6m-38 1h1m5 0h1m2 0h1m1 0h5m3 0h1m6 0h1m4 0h1m2 0h1m1 0h3m1 0h1m-41 1h7m1 0h5m1 0h1m4 0h1m2 0h1m2 0h2m2 0h3m2 0h3m1 0h1"/></svg>
+      <span>Full DVLA guidance</span>
+    </div>
+  </header>
+
+  <div class="duty">The patient must tell DVLA. DVLA decides when they can drive.</div>
+
+  <section class="steps">
+    <div class="step">
+      <h3>1. Advise</h3>
+      <p>Tell the patient their condition may affect driving, and whether to stop (see below).</p>
+    </div>
+    <div class="step">
+      <h3>2. Signpost</h3>
+      <div class="row"><svg role="img" aria-label="QR code: gov.uk/health-conditions-and-driving" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37"><path stroke="#000" d="M2 2.5h7m1 0h4m1 0h4m1 0h1m4 0h1m2 0h7m-33 1h1m5 0h1m5 0h3m3 0h2m1 0h2m3 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m1 0h1m2 0h1m2 0h2m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m7 0h2m5 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h4m2 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h2m2 0h2m1 0h1m2 0h1m1 0h3m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h3m4 0h5m1 0h1m-24 1h1m3 0h1m1 0h3m1 0h3m2 0h1m1 0h1m2 0h10m2 0h1m-33 1h2m2 0h2m1 0h2m2 0h1m2 0h5m2 0h3m1 0h1m3 0h3m-31 1h2m1 0h1m1 0h4m2 0h4m2 0h1m2 0h3m1 0h2m2 0h1m1 0h1m-31 1h1m1 0h2m6 0h3m7 0h1m2 0h1m1 0h1m4 0h1m-32 1h4m1 0h9m1 0h2m4 0h4m1 0h1m1 0h2m1 0h1m-30 1h1m1 0h2m1 0h1m1 0h3m1 0h2m2 0h4m2 0h1m1 0h1m1 0h1m1 0h1m-30 1h1m5 0h2m1 0h4m1 0h2m1 0h2m1 0h1m2 0h1m1 0h2m1 0h1m1 0h2m-32 1h3m1 0h1m2 0h1m6 0h4m3 0h2m2 0h4m-29 1h4m1 0h2m1 0h1m1 0h1m1 0h1m4 0h1m1 0h3m2 0h1m1 0h1m1 0h1m2 0h1m-32 1h4m1 0h1m7 0h1m1 0h2m4 0h1m1 0h2m4 0h3m-31 1h1m1 0h1m1 0h4m2 0h3m1 0h1m1 0h1m2 0h1m2 0h3m1 0h1m1 0h1m1 0h1m-32 1h2m2 0h1m2 0h1m4 0h2m2 0h7m1 0h1m2 0h1m-25 1h1m2 0h1m1 0h1m4 0h2m3 0h1m1 0h3m2 0h2m1 0h2m2 0h1m-33 1h2m1 0h3m1 0h2m1 0h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m-26 1h2m3 0h3m2 0h4m3 0h1m1 0h1m2 0h4m-30 1h1m2 0h1m2 0h2m1 0h1m2 0h1m2 0h1m1 0h8m-27 1h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h3m1 0h6m1 0h2m-25 1h6m1 0h4m1 0h1m1 0h3m3 0h1m1 0h1m-31 1h7m1 0h3m4 0h1m2 0h1m1 0h1m3 0h1m1 0h1m1 0h2m1 0h1m-32 1h1m5 0h1m3 0h1m4 0h1m3 0h1m1 0h1m2 0h1m3 0h1m2 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m4 0h3m3 0h1m3 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m2 0h3m1 0h1m3 0h4m2 0h1m2 0h3m1 0h1m-31 1h1m1 0h3m1 0h1m3 0h6m1 0h1m3 0h1m3 0h4m1 0h1m-31 1h1m5 0h1m3 0h3m1 0h4m3 0h1m1 0h4m2 0h1m-30 1h7m1 0h1m1 0h2m5 0h8m1 0h1m5 0h1"/></svg><p>Ask them to check GOV.UK or tell DVLA, and let DVLA decide.</p></div>
+    </div>
+    <div class="step">
+      <h3>3. Document</h3>
+      <p>Record <strong>what advice you gave</strong>, for example:</p>
+      <p><em>"Advised not to drive and to tell DVLA about first seizure. Patient understood."</em></p>
+    </div>
+  </section>
+
+  <div class="escalate"><strong>Public safety risk?</strong> Patient won't stop driving? Speak to a senior about telling DVLA without consent.</div>
+
+  <section class="groups">
+    <div class="g1">
+      <h3>Group 1</h3>
+      <p>Cars, motorcycles, and vans up to 3.5 tonnes (most delivery drivers).</p>
+    </div>
+    <div class="g2">
+      <h3>Group 2 <span>stricter rules</span></h3>
+      <p>Lorries over 3.5 tonnes (C1, C), minibuses and buses (D1, D).</p>
+    </div>
+    <div class="work">
+      <h3>Drives for work? Ask what they drive.</h3>
+      <ul>
+        <li><strong>Taxi and private hire:</strong> councils should apply Group 2 rules.</li>
+        <li><strong>Delivery:</strong> van up to 3.5 t is Group 1; larger lorry is Group 2.</li>
+        <li><strong>Paramedics, police, fire:</strong> rules for the vehicle they drive (ambulance over 3.5 t is Group 2). Employers may set higher standards.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="legend">
+    <span class="item"><span class="chip c-stop">Stop + tell DVLA</span> Don't drive. Tell DVLA.</span>
+    <span class="item"><span class="chip c-pause">Stop</span> Don't drive for a time.</span>
+    <span class="item"><span class="chip c-tell">Tell DVLA</span> Tell DVLA.</span>
+    <span class="item"><span class="chip c-ok">No need</span> No need to tell DVLA.</span>
+  </div>
+
+  <section class="conditions">
+    <div class="col">
+      <table>
+        <tr class="cap"><th>Seizures and blackouts</th><th class="g">Group 1</th><th class="g">Group 2</th></tr>
+        <tr><td>Any seizure (first, provoked or epilepsy)</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Dissociative (functional) seizures</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Unexplained blackout</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Simple faint with warning signs, not driving</td><td><span class="chip c-ok">No need</span></td><td><span class="chip c-tell">Tell DVLA</span></td></tr>
+      </table>
+      <table>
+        <tr class="cap"><th>Brain</th><th class="g">Group 1</th><th class="g">Group 2</th></tr>
+        <tr><td>Stroke<small>Group 1: tell DVLA if a deficit remains after 1 month</small></td><td><span class="chip c-pause">Stop</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>TIA</td><td><span class="chip c-pause">Stop</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Subdural haematoma</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Sudden disabling vertigo</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+      </table>
+      <table>
+        <tr class="cap"><th>Heart</th><th class="g">Group 1</th><th class="g">Group 2</th></tr>
+        <tr><td>Acute coronary syndrome</td><td><span class="chip c-pause">Stop</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Arrhythmia causing incapacity</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>New pacemaker</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>ICD fitted, or ICD shock</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Aortic dissection</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+      </table>
+    </div>
+    <div class="col">
+      <table>
+        <tr class="cap"><th>Mental health</th><th class="g">Group 1</th><th class="g">Group 2</th></tr>
+        <tr><td>Severe depression or anxiety, or suicidal thoughts</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Psychosis or mania</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Dementia</td><td><span class="chip c-tell">Tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Mild to moderate depression or anxiety</td><td><span class="chip c-ok">No need</span></td><td><span class="chip c-ok">No need</span></td></tr>
+      </table>
+      <table>
+        <tr class="cap"><th>Alcohol, drugs and diabetes</th><th class="g">Group 1</th><th class="g">Group 2</th></tr>
+        <tr><td>Alcohol dependence or persistent misuse</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Drug misuse or dependence</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Severe hypo while driving</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Lost awareness of hypos</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+      </table>
+      <table>
+        <tr class="cap"><th>Eyes and other</th><th class="g">Group 1</th><th class="g">Group 2</th></tr>
+        <tr><td>Cannot read a number plate at 20 metres</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Double vision</td><td><span class="chip c-stop">Stop + tell DVLA</span></td><td><span class="chip c-stop">Stop + tell DVLA</span></td></tr>
+        <tr><td>Visual field loss</td><td><span class="chip c-tell">Tell DVLA</span></td><td><span class="chip c-tell">Tell DVLA</span></td></tr>
+        <tr><td>Fracture, surgery or illness lasting under 3 months</td><td><span class="chip c-ok">No need</span></td><td><span class="chip c-ok">No need</span></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <p class="check"><strong>Not on the list, or not sure?</strong> Scan the QR code. For example: head injury, subarachnoid haemorrhage, brain tumour, aortic aneurysm, faint while driving.</p>
+
+  <footer>
+    <div>Summary of DVLA "Assessing fitness to drive" (GOV.UK, updated 7 November 2025). Not a complete list. Developed by Dr Jake Turner.</div>
+    <div class="review">Review by: April 2027</div>
+  </footer>
+
+</div>
+</div>
+
+<script>
+  (function () {
+    var tabs = document.querySelectorAll('.tab');
+    var posters = document.querySelectorAll('.poster');
+    var stage = document.querySelector('.stage');
+    function fit() {
+      posters.forEach(function (p) {
+        if (!p.classList.contains('active')) return;
+        p.style.transform = 'none';
+        var s = Math.min((stage.clientWidth - 20) / p.offsetWidth, (stage.clientHeight - 20) / p.offsetHeight);
+        p.style.transform = 'scale(' + s + ')';
+      });
+    }
+    function show(id) {
+      if (!document.getElementById(id)) id = 'simple';
+      posters.forEach(function (p) { p.classList.toggle('active', p.id === id); });
+      tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.target === id ? 'true' : 'false'); });
+      if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+      fit();
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.dataset.target); }); });
+    document.getElementById('printOne').addEventListener('click', function () { window.print(); });
+    document.getElementById('printBoth').addEventListener('click', function () {
+      document.body.classList.add('print-both');
+      window.print();
+    });
+    window.addEventListener('afterprint', function () { document.body.classList.remove('print-both'); });
+    window.addEventListener('resize', fit);
+    window.addEventListener('load', fit);
+    show(location.hash.slice(1));
+  })();
+</script>
 </body>
 </html>
